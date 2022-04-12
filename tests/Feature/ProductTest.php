@@ -2,6 +2,9 @@
 
 namespace Tests\Feature;
 
+use App\Models\Category;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -12,12 +15,18 @@ class ProductTest extends TestCase
 
     /** @test */
     public function a_product_belongs_to_a_user() {
-        
+        $user = User::factory()->create();
+        $prod = Product::factory()->create(['user_id' => $user->id]);
+        $this->assertInstanceOf(User::class,$prod->user);
+        $this->assertEquals($user->id,$prod->user->id);
     }
 
     /** @test */
     public function a_product_has_a_category() {
-        
+        $cat = Category::factory()->create();
+        $prod = Product::factory()->create(['category_id' => $cat->id]);
+        $this->assertInstanceOf(Category::class,$prod->category);
+        $this->assertEquals($cat->id,$prod->user->id);
     }
 
     /** @test */
