@@ -3,6 +3,7 @@
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Schema;
 
 class SeedUsersTable extends Migration
@@ -18,7 +19,7 @@ class SeedUsersTable extends Migration
             User::factory()->create([
                 'name' => env('ADMIN_NAME'),
                 'email' => env('ADMIN_EMAIL'),
-                'password' => env('ADMIN_PASSWORD'),
+                'password' => Hash::make(env('ADMIN_PASSWORD')),
             ]);
             User::factory(20)->create();
         }
