@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-Donate Page
+Home Page
 
 @endsection
 
