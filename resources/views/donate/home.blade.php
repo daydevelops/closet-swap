@@ -73,9 +73,9 @@
                 </tr>
                 <tr>
                     <td colspan="2">
-                        <button id="card-button" class="btn-primary">
+                        <x-button type="primary">
                             Process Payment
-                        </button>
+                        </x-button>
                     </td>
                 </tr>
             </tbody>
