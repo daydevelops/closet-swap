@@ -15,7 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [HomeController::class,'home'])->name('home');
-Route::get('/donate',[HomeController::class,'donate'])->name('donate');
+Route::group(['prefix'=>'/donate'],function() {
+    Route::get('/',[HomeController::class,'donate'])->name('donate');
+    Route::get('/success',[HomeController::class,'success'])->name('successful-donation');
+    Route::post('/',[HomeController::class,'process'])->name('process-donation');
+});
 
 Route::middleware([
     'auth:sanctum',
