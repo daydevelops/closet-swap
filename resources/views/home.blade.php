@@ -1,9 +1,11 @@
-@extends('layouts.app')
+<x-app-layout>
 
-@section('content')
-Home Page
+    <x-slot name="header">
+        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            {{ __('Home') }}
+        </h2>
+    </x-slot>
 
-@endsection
-
-@push('js')
-@endpush
+    @push('js')
+    @endpush
+</x-app-layout>

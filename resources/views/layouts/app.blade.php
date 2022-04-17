@@ -12,7 +12,9 @@
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
         @stack('css')
+        
         @livewireStyles
 
         <!-- Scripts -->
@@ -35,13 +37,14 @@
 
             <!-- Page Content -->
             <main>
-                @yield('content')
+                {{ $slot }}
             </main>
         </div>
 
         @stack('modals')
 
         @livewireScripts
+
         @stack('js')
     </body>
 </html>
