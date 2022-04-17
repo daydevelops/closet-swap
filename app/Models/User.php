@@ -27,6 +27,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'donations'
     ];
 
     /**
@@ -61,5 +62,9 @@ class User extends Authenticatable
     
     public function products() {
         return $this->hasMany(Product::class);
+    }
+
+    public function getHasDonatedAttribute() {
+        return $this->donations > 0;
     }
 }

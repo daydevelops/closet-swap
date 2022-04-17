@@ -112,8 +112,7 @@
                 if (result.error) {
                     alert(result.error.message);
                 } else {
-                    axios.post('/donate', {
-                        "_token": "{{ csrf_token() }}",
+                    axios.post('{{route("process-donation")}}', {
                         'id': result.token.id,
                         'cost': document.getElementById('cost').value,
                     }).then(function (response) {

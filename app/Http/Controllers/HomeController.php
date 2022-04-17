@@ -20,17 +20,31 @@ class HomeController extends Controller
     }
 
     public function process(Request $request) {
+        $data = $request->validate([
+            'cost' => 'required|numeric|min:0.5',
+            'id' => 'required'
+        ]);
+        $cost_cents = $data['cost'] * 100; 
+        $cost_cad = $data['cost'];
+
         try {
             \Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
             \Stripe\Charge::create([
-                'amount' => request('cost')*100,
+                'amount' => $cost_cents,
                 'currency' => 'cad',
-                'source' => request('id')
+                'source' => $data['id']
             ]);
-            return response()->json([
-                'status'=>true,
-                'cost'=>request('cost')
-            ]);
+
+            if (auth()->check()) {
+                $user = auth()->user();
+                $current_donations = $user->donations;
+                $user->update([
+                    'donations' => $current_donations + $cost_cad
+                ]);
+            }
+
+            return redirect(route('successful-donation'));
+
         } catch (CardException $e) {
             return response()->json([
                 'status'=>false

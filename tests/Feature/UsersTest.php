@@ -14,6 +14,12 @@ class UsersTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
+    public function a_user_knows_if_it_has_donated() {
+        $this->assertFalse(User::factory()->create(['donations'=>0])->hasDonated);
+        $this->assertTrue(User::factory()->create(['donations'=>1])->hasDonated);
+    }
+
+    /** @test */
     public function a_user_has_products() {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();
