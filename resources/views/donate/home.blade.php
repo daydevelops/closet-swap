@@ -120,13 +120,13 @@
                     if (result.error) {
                         alert(result.error.message);
                     } else {
-                        axios.post('{{route("process-donation")}}', {
+                        axios.post('{{route("donate.process")}}', {
                             'id': result.token.id,
                             'cost': document.getElementById('cost').value,
                         }).then(function (response) {
                             if (response.status) {
                                 window.location.replace(
-                                    '{{route("successful-donation")}}');
+                                    '{{route("donate.success")}}');
                             } else {
                                 alert(
                                     "Sorry, There was a problem with your card. Please check your card information and try again."

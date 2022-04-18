@@ -17,8 +17,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class,'home'])->name('home');
 Route::group(['prefix'=>'/donate'],function() {
     Route::get('/',[HomeController::class,'donate'])->name('donate');
-    Route::get('/success',[HomeController::class,'success'])->name('successful-donation');
-    Route::post('/',[HomeController::class,'process'])->name('process-donation');
+    Route::get('/success',[HomeController::class,'success'])->name('donate.success');
+    Route::post('/',[HomeController::class,'process'])->name('donate.process');
 });
 
 Route::middleware([

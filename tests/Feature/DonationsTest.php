@@ -25,7 +25,7 @@ class DonationsTest extends TestCase
         $res = $this->post('/donate',[
             'cost' => 5,
             'id' => 'tok_visa'
-        ])->assertRedirect(route('successful-donation'));
+        ])->assertRedirect(route('donate.success'));
     }
 
     /** @test */
@@ -34,7 +34,7 @@ class DonationsTest extends TestCase
         $res = $this->post('/donate',[
             'cost' => 5,
             'id' => 'tok_visa'
-        ])->assertRedirect(route('successful-donation'));
+        ])->assertRedirect(route('donate.success'));
     }
 
     /** @test */
@@ -44,7 +44,7 @@ class DonationsTest extends TestCase
         $res = $this->post('/donate',[
             'cost' => 5,
             'id' => 'tok_visa'
-        ])->assertRedirect(route('successful-donation'));
+        ])->assertRedirect(route('donate.success'));
         $this->assertEquals(5,$me->fresh()->donations);
     }
 
@@ -112,7 +112,7 @@ class DonationsTest extends TestCase
             $res = $this->post('/donate',[
                 'cost' => 5,
                 'id' => $token
-            ])->assertRedirect(route('successful-donation'));
+            ])->assertRedirect(route('donate.success'));
             $this->assertEquals(5,$me->fresh()->donations);
         }
     }
@@ -137,7 +137,7 @@ class DonationsTest extends TestCase
             $res = $this->post('/donate',[
                 'cost' => 5,
                 'id' => $token
-            ])->assertRedirect(route('successful-donation'));
+            ])->assertRedirect(route('donate.success'));
             $this->assertEquals(5,$me->fresh()->donations);
         }
     }

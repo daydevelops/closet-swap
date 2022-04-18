@@ -43,7 +43,7 @@ class HomeController extends Controller
                 ]);
             }
 
-            return redirect(route('successful-donation'));
+            return redirect(route('donate.success'));
 
         } catch (CardException $e) {
             return response()->json([
