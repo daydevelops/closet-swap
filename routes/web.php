@@ -44,7 +44,7 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
             : null;
 
     Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authSessionMiddleware, 'verified']))], function () {
-        Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
+        Route::get('/user/settings', [UserController::class, 'settings'])->name('profile.show');
     });
 });
 
