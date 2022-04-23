@@ -18,6 +18,7 @@ class SeedUsersTable extends Migration
         if (config('app.env') == 'local') {
             User::factory()->create([
                 'name' => env('ADMIN_NAME'),
+                'handle' => env('ADMIN_NAME'),
                 'email' => env('ADMIN_EMAIL'),
                 'password' => Hash::make(env('ADMIN_PASSWORD')),
             ]);
