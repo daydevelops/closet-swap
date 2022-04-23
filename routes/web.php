@@ -3,6 +3,10 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
+use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
+use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
+use Laravel\Jetstream\Jetstream;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,6 +19,36 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    // auth routes
+});
+
+
+Route::group(['middleware' => config('jetstream.middleware', ['web'])], function () {
+    if (Jetstream::hasTermsAndPrivacyPolicyFeature()) {
+        Route::get('/terms-of-service', [TermsOfServiceController::class, 'show'])->name('terms.show');
+        Route::get('/privacy-policy', [PrivacyPolicyController::class, 'show'])->name('policy.show');
+    }
+
+    $authMiddleware = config('jetstream.guard')
+            ? 'auth:'.config('jetstream.guard')
+            : 'auth';
+
+    $authSessionMiddleware = config('jetstream.auth_session', false)
+            ? config('jetstream.auth_session')
+            : null;
+
+    Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authSessionMiddleware, 'verified']))], function () {
+        Route::get('/user/settings', [UserProfileController::class, 'show'])->name('user.settings');
+    });
+});
+
+
 Route::get('/', [HomeController::class,'home'])->name('home');
 Route::group(['prefix'=>'/donate'],function() {
     Route::get('/',[HomeController::class,'donate'])->name('donate');
@@ -24,12 +58,4 @@ Route::group(['prefix'=>'/donate'],function() {
 
 Route::group(['prefix'=>'/products'],function() {
     Route::get('/',[ProductController::class,'index'])->name('products');
-});
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    // auth routes
 });
