@@ -20,6 +20,12 @@ class UsersTest extends TestCase
     }
 
     /** @test */
+    public function a_user_knows_the_link_to_their_profile() {
+        $user = User::factory()->create(['handle' => 'foobar']);
+        $this->assertEquals('profile/foobar',$user->profile());
+    }
+
+    /** @test */
     public function a_user_has_products() {
         $user1 = User::factory()->create();
         $user2 = User::factory()->create();

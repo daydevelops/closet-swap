@@ -32,7 +32,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'donations'
+        'donations',
+        'handle'
     ];
 
     /**
@@ -85,5 +86,9 @@ class User extends Authenticatable
 
     public function getHasDonatedAttribute() {
         return $this->donations > 0;
+    }
+
+    public function profile() {
+        return 'profile/' . $this->handle;
     }
 }
