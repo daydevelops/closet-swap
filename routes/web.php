@@ -2,10 +2,10 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
 use Laravel\Jetstream\Http\Controllers\Livewire\TermsOfServiceController;
-use Laravel\Jetstream\Http\Controllers\Livewire\UserProfileController;
 use Laravel\Jetstream\Jetstream;
 
 /*
@@ -44,7 +44,7 @@ Route::group(['middleware' => config('jetstream.middleware', ['web'])], function
             : null;
 
     Route::group(['middleware' => array_values(array_filter([$authMiddleware, $authSessionMiddleware, 'verified']))], function () {
-        Route::get('/user/settings', [UserProfileController::class, 'show'])->name('user.settings');
+        Route::get('/user/settings', [UserController::class, 'settings'])->name('user.settings');
     });
 });
 
