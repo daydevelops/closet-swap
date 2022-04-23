@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -19,6 +20,10 @@ Route::group(['prefix'=>'/donate'],function() {
     Route::get('/',[HomeController::class,'donate'])->name('donate');
     Route::get('/success',[HomeController::class,'success'])->name('donate.success');
     Route::post('/',[HomeController::class,'process'])->name('donate.process');
+});
+
+Route::group(['prefix'=>'/products'],function() {
+    Route::get('/',[ProductController::class,'index'])->name('products');
 });
 
 Route::middleware([
