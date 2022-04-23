@@ -66,6 +66,11 @@ class User extends Authenticatable
         'profile_photo_url',
     ];
 
+    public function getRouteKeyName()
+    {
+        return 'handle';
+    }
+
     /**
      * Get the URL to the user's profile photo.
      *

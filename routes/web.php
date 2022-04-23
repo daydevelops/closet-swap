@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
@@ -54,6 +55,10 @@ Route::group(['prefix'=>'/donate'],function() {
     Route::get('/',[HomeController::class,'donate'])->name('donate');
     Route::get('/success',[HomeController::class,'success'])->name('donate.success');
     Route::post('/',[HomeController::class,'process'])->name('donate.process');
+});
+
+Route::group(['prefix'=>'/profile'],function() {
+    Route::get('/{user}',[ProfileController::class,'show'])->name('profile.visit');
 });
 
 Route::group(['prefix'=>'/products'],function() {
