@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 class ProfileController extends Controller
 {
     public function show(Request $request, User $user) {
-        return view('profile.show',compact('user'));
+        $products = $user->products;
+        return view('profile.show',compact('user','products'));
     }
 }
