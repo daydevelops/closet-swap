@@ -33,7 +33,8 @@ class User extends Authenticatable
         'email',
         'password',
         'donations',
-        'handle'
+        'handle',
+        'bio'
     ];
 
     /**
