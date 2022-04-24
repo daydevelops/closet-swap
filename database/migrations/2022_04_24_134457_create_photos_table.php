@@ -27,9 +27,10 @@ class CreatePhotosTable extends Migration
         if (config('app.env') == 'local') {
             $prods = Product::select('id')->get();
             foreach ($prods as $p) {
+                $photo = Photo::factory()->create(['product_id'=>$p->id]);
                 Photo::factory()->create(['product_id'=>$p->id]);
                 Photo::factory()->create(['product_id'=>$p->id]);
-                Photo::factory()->create(['product_id'=>$p->id]);
+                $p->update(['primary_photo_id'=>$photo->id]);
             }
         }
     }
