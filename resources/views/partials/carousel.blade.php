@@ -1,5 +1,5 @@
 @php
-$carousel_id = "carousel-photos-" . ;
+$carousel_id = "carousel-photos-" . $photos->first()->product_id;
 @endphp
 
 <div id="{{$carousel_id}}" class="carousel slide relative" data-bs-ride="carousel">
