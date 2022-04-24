@@ -70,6 +70,6 @@ return [
         public_path('storage') => storage_path('app/public'),
     ],
 
-    'product_photos_directory' => public_path('storage') . '/product-photos'
+    'product_photos_directory' => env('APP_URL') . '/storage/product-photos'
 
 ];
