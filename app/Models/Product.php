@@ -16,8 +16,6 @@ class Product extends Model
         'description',
         'gender',
         'size',
-        'material',
-        'colors',
         'tags',
         'status',
         'primary_photo_id'

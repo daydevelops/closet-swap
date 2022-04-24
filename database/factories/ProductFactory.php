@@ -24,8 +24,6 @@ class ProductFactory extends Factory
             'description' => $this->faker->sentence,
             'gender'      => $this->faker->word,
             'size'        => $this->faker->word,
-            'material'    => $this->faker->word,
-            'colors'      => json_encode([$this->faker->word,$this->faker->word,$this->faker->word]),
             'tags'        => json_encode([$this->faker->word,$this->faker->word,$this->faker->word]),
             'status'      => 'available',
         ];

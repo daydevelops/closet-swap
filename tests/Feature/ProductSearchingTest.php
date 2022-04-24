@@ -36,11 +36,6 @@ class ProductSearchingTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_search_via_material() {
-        
-    }
-
-    /** @test */
     public function a_user_can_search_via_condition() {
         
     }

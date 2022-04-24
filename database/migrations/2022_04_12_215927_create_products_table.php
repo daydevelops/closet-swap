@@ -23,9 +23,7 @@ class CreateProductsTable extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('gender');
-            $table->string('size');
-            $table->string('material');
-            $table->json('colors');
+            $table->string('size')->nullable();
             $table->json('tags');
             $table->string('status');
             $table->foreignId('primary_photo_id')->nullable();
