@@ -20,6 +20,7 @@ class Product extends Model
         'colors',
         'tags',
         'status',
+        'primary_photo_id'
     ];
 
     public function user() {
@@ -28,5 +29,9 @@ class Product extends Model
 
     public function category() {
         return $this->belongsTo(Category::class);
+    }
+
+    public function photos() {
+        return $this->hasMany(Photo::class);
     }
 }

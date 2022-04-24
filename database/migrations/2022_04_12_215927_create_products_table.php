@@ -28,6 +28,7 @@ class CreateProductsTable extends Migration
             $table->json('colors');
             $table->json('tags');
             $table->string('status');
+            $table->foreignId('primary_photo_id')->nullable();
             $table->timestamps();
         });
 
