@@ -9,16 +9,6 @@ use App\Models\Product;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -47,7 +37,9 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $product->load('category');
+        $product->load('user:id,name,profile_photo_path');
+        return view('products.show',compact('product'));
     }
 
     /**
