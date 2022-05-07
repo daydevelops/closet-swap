@@ -22,10 +22,6 @@
                 </p>
             </div>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4">
-            @foreach($products as $product)
-            <x-product-preview :product="$product" />
-            @endforeach
-        </div>
+        <livewire:product-list user_id="{{$user->id}}"/>
     </div>
 </x-app-layout>

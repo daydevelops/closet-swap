@@ -2,7 +2,6 @@
 
 namespace App\View\Components;
 
-use App\Models\Product;
 use Illuminate\View\Component;
 
 class ProductPreview extends Component
@@ -15,7 +14,7 @@ class ProductPreview extends Component
      *
      * @return void
      */
-    public function __construct(Product $product)
+    public function __construct($product)
     {
         $this->product = $product;
     }
