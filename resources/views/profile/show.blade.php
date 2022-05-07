@@ -22,6 +22,13 @@
                 </p>
             </div>
         </div>
+
+        @if(auth()->check() && auth()->id() == $user->id);
+        <div class="text-center mb-8">
+            <a href="{{route('products.create')}}"><x-button type="primary">Show Off A New Item!</x-button></a>
+        </div>
+        @endif
+
         <livewire:product-list user_id="{{$user->id}}"/>
     </div>
 </x-app-layout>

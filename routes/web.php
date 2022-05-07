@@ -63,4 +63,6 @@ Route::group(['prefix'=>'/profile'],function() {
 
 Route::group(['prefix'=>'/products'],function() {
     Route::get('/',[ProductController::class,'index'])->name('products');
+    Route::get('/create',[ProductController::class,'create'])->name('products.create');
+    Route::get('/{$product}',[ProductController::class,'show'])->name('products.show');
 });
