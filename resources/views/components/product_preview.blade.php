@@ -1,6 +1,8 @@
-<div>
-    <div class="card h-96 relative m-2 hover:-m-1 z-10 hover:z-20 hover:h-full">
-        @include('partials.carousel',['photos'=>$product->photos])
+<div class="flex justify-center">
+    <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs">
+        <div class="mb-2 max-h-48">
+            @include('partials.carousel',['photos'=>$product->photos, 'height' => 48, 'width' => 56])
+        </div>
         <h3 class="font-bold text-lg mt-2">{{$product->title}}</h3>
         <h3 class="text-sm text-gray-400 mb-2">
             {{$product->category->name}}
