@@ -39,6 +39,11 @@ class CreateProductsTable extends Migration
                 Product::factory()->create(['user_id'=>$u->id,'category_id'=>$categories[array_rand($categories)]]);
                 Product::factory()->create(['user_id'=>$u->id,'category_id'=>$categories[array_rand($categories)]]);
             }
+            
+            $admin = User::where('email',env('ADMIN_EMAIL'))->first()->id;
+            for ($i=0;$i<20;$i++) {
+                Product::factory()->create(['user_id'=>$admin,'category_id'=>$categories[array_rand($categories)]]);
+            }
         }
     }
 
