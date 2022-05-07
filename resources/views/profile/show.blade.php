@@ -5,10 +5,12 @@
                 <img src="{{ $user->profile_photo_url }}" alt="{{ $user->name }}"
                     class="inline rounded-full md:h-40 h-20 md:w-40 w-20 object-cover border m-3">
 
+                @if(!auth()->check() || auth()->id() != $user->id)
                 <div class="mx-auto text-center">
                     <i class="cursor-pointer text-4xl px-2 text-blue-400 fa fa-comment-dots"></i>
                     <i class="cursor-pointer text-4xl px-2 text-pink-200 fa fa-heart"></i>
                 </div>
+                @endif
             </div>
             <div class="md:mx-0 mx-auto md:text-left text-center">
                 <h2 class="font-semibold text-4xl text-gray-800">
@@ -19,6 +21,9 @@
                 </p>
                 <p class="text-gray-800 text-2xl">
                     {{ $user->bio }}
+                </p>
+                <p class="text-gray-400 mt-4">
+                    <span>999</span> Followers
                 </p>
             </div>
         </div>
