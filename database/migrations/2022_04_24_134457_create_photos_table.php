@@ -18,7 +18,7 @@ class CreatePhotosTable extends Migration
         Schema::create('photos', function (Blueprint $table) {
             $table->id();
             $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->string('file_name')->default('default_product_image.jpeg');
+            $table->string('file_name')->default('default_product_1.jpeg');
             $table->timestamps();
         });
 
@@ -27,9 +27,10 @@ class CreatePhotosTable extends Migration
         if (config('app.env') == 'local') {
             $prods = Product::select('id')->get();
             foreach ($prods as $p) {
-                $photo = Photo::factory()->create(['product_id'=>$p->id]);
-                Photo::factory()->create(['product_id'=>$p->id]);
-                Photo::factory()->create(['product_id'=>$p->id]);
+                $photo = Photo::factory()->create(['product_id'=>$p->id, 'file_name'=>'default_product_1.jpg']);
+                Photo::factory()->create(['product_id'=>$p->id, 'file_name'=>'default_product_2.jpg']);
+                Photo::factory()->create(['product_id'=>$p->id, 'file_name'=>'default_product_3.jpg']);
+                Photo::factory()->create(['product_id'=>$p->id, 'file_name'=>'default_product_4.jpg']);
                 $p->update(['primary_photo_id'=>$photo->id]);
             }
         }
