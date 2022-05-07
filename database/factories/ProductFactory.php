@@ -21,7 +21,7 @@ class ProductFactory extends Factory
             'user_id'     => $user ? $user->id : User::factory(),
             'category_id' => $category ? $category->id : Category::factory(),
             'title'       => $this->faker->word . ' ' . $this->faker->word,
-            'description' => $this->faker->sentence,
+            'description' => $this->faker->paragraph,
             'gender'      => $this->faker->word,
             'size'        => $this->faker->word,
             'tags'        => json_encode([$this->faker->word,$this->faker->word,$this->faker->word]),
