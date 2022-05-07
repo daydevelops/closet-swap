@@ -66,7 +66,7 @@
         </div>
         <div class="container my-8">
             <h4 class="text-center text-lg font-semibold">More like this...</h4>
-            <livewire:product-list product_id="{{$product->id}}"/>
+            <livewire:product-list similar_to_product_id="{{$product->id}}"/>
         </div>
     </div>
 </x-app-layout>
