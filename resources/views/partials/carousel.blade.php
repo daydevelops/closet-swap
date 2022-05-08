@@ -2,11 +2,11 @@
 $carousel_id = "carousel-photos-" . $photos[0]['product_id'];
 @endphp
 
-<div id="{{$carousel_id}}" class="carousel carousel-dark relative h-{{$height}} w-{{$width}}" data-bs-ride="carousel">
-    <div class="carousel-inner relative object-contain w-full h-full">
+<div id="{{$carousel_id}}" data-bs-interval="false" class="carousel carousel-dark relative max-h-{{$height}} w-{{$width}}" data-bs-ride="carousel">
+    <div class="carousel-inner relative w-full h-{{$height}}">
         @foreach($photos as $photo)
-        <div class="carousel-item relative max-w-full max-h-full {{$photo['is_primary'] ? 'active' : ''}}">
-            <img src="{{$photo['path']}}" class="max-w-{{$width}} max-h-{{$height}} block mx-auto" />
+        <div class="carousel-item relative max-w-full max-h-full min-h-{{$height}} {{$photo['is_primary'] ? 'active' : ''}}">
+            <img src="{{$photo['path']}}" class="max-w-{{$width}} max-h-{{$height}} h-{{$height}} block mx-auto" />
         </div>
         @endforeach
     </div>

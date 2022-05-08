@@ -1,14 +1,12 @@
 <div class="flex justify-center">
-    <a href="{{route('products.show',$product['id'])}}">
 
-        @if ($product['gender'] == 'male')
-        <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs border-male-2 border-2">
-        @elseif ($product['gender'] == 'female')
-        <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs border-female-2 border-2">
-        @else
-        <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs border-andro-2 border-2">
-        @endif
-        
+    <div class="border-male-2 border-female-2 border-andro-2 hidden">
+        <!-- used to load in dynamic tailwind classes -->
+    </div>
+
+    <div
+        class="card h-96 mh-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs border-2 border-{{$product['gender']}}-2">
+        <a href="{{route('products.show',$product['id'])}}">
             <div class="mb-2 max-h-48">
                 @include('partials.carousel',['photos'=>$product['photos'], 'height' => 48, 'width' => 56])
             </div>
@@ -20,10 +18,10 @@
                 @endif
             </h3>
             <p class="block text-gray-800 italic">{{\Illuminate\Support\Str::limit($product['description'],80)}}</p>
-            <p class="block text-gray-800 font-weight-700 text-sm bottom-0 absolute">
-               
+        </a>
+        <div class="block text-gray-800 font-weight-700 text-sm bottom-0 absolute">
+
             @include('partials.tags',['tags'=>json_decode($product['tags'])])
-            </p>
         </div>
-    </a>
+    </div>
 </div>
