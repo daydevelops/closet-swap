@@ -9,8 +9,8 @@
 
                     @if(!auth()->check() || auth()->id() != $product->user->id)
                     <div class="mx-auto text-center">
-                        <i class="cursor-pointer text-4xl px-2 text-blue-400 fa fa-comment-dots"></i>
-                        <i class="cursor-pointer text-4xl px-2 text-pink-200 fa fa-heart"></i>
+                        <i class="cursor-pointer text-4xl px-2 text-male-2 fa fa-comment-dots"></i>
+                        <i class="cursor-pointer text-4xl px-2 text-female-1 fa fa-heart"></i>
                     </div>
                     @endif
                 </div>

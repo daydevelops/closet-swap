@@ -22,7 +22,7 @@ module.exports = {
                     3: '#0ea5e9',
                 },
                 female: {
-                    1: '#f9a8d4',
+                    1: '#fbcfe8',
                     2: '#f472b6',
                     3: '#ec4899',
                 },
