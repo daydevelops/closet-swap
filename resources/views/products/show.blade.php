@@ -50,12 +50,8 @@
                         {{ $product->gender }}
                     </p>
                 </div>
-                <div class="grid grid-cols-1 mb-4 text-gray-400">
-                    <p>
-                        @foreach(json_decode($product->tags) as $tag)
-                        {{' #' . $tag}}
-                        @endforeach
-                    </p>
+                <div class="grid grid-cols-1 mb-4">
+                    @include('partials.tags',['tags'=>json_decode($product->tags)])
                 </div>
                 <div class="grid grid-cols-1">
                     <p>

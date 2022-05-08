@@ -3,6 +3,7 @@
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Jetstream\Http\Controllers\Livewire\PrivacyPolicyController;
@@ -65,4 +66,8 @@ Route::group(['prefix'=>'/products'],function() {
     Route::get('/',[ProductController::class,'index'])->name('products');
     Route::get('/create',[ProductController::class,'create'])->name('products.create');
     Route::get('/{product}',[ProductController::class,'show'])->name('products.show');
+});
+
+Route::group(['prefix'=>'/search'],function() {
+    Route::get('/tag/{tag}',[SearchController::class,'tag'])->name('search.tag');
 });

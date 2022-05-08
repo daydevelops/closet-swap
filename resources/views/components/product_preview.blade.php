@@ -21,9 +21,8 @@
             </h3>
             <p class="block text-gray-800 italic">{{\Illuminate\Support\Str::limit($product['description'],80)}}</p>
             <p class="block text-gray-800 font-weight-700 text-sm bottom-0 absolute">
-                @foreach(json_decode($product['tags']) as $tag)
-                {{' #' . $tag}}
-                @endforeach
+               
+            @include('partials.tags',['tags'=>json_decode($product['tags'])])
             </p>
         </div>
     </a>
