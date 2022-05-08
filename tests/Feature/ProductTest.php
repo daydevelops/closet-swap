@@ -32,7 +32,49 @@ class ProductTest extends TestCase
 
     /** @test */
     public function a_product_has_likes() {
-        
+
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $prod = Product::factory()->create(['user_id'=>$user2->id]);
+
+        $this->assertDatabaseCount('likes',0);
+        $this->assertCount(0,$prod->fresh()->likes);
+
+        $prod->likes()->attach($user1);
+
+        $this->assertCount(1,$prod->fresh()->likes);
+        $this->assertEquals($user1->id,$prod->fresh()->likes->first()->id);
+        $this->assertDatabaseCount('likes',1);
+    }
+
+    /** @test */
+    public function a_product_knows_if_it_is_liked() {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $prod = Product::factory()->create(['user_id'=>$user2->id]);
+        $this->signIn($user1);
+
+        $this->assertFalse($prod->fresh()->liked);
+        $prod->like();
+        $this->assertTrue($prod->fresh()->liked);
+    }
+
+    /** @test */
+    public function a_product_knows_how_many_likes_it_has() {
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        $user3 = User::factory()->create();
+        $user4 = User::factory()->create();
+        $prod = Product::factory()->create(['user_id'=>$user4->id]);
+        $this->signIn($user1);
+        $prod->like();
+        $this->assertEquals(1,Product::find($prod->id)->withCount('likes')->get()->first()->likes_count);
+        $this->signIn($user2);
+        $prod->like();
+        $this->assertEquals(2,Product::find($prod->id)->withCount('likes')->get()->first()->likes_count);
+        $this->signIn($user3);
+        $prod->like();
+        $this->assertEquals(3,Product::find($prod->id)->withCount('likes')->get()->first()->likes_count);
     }
 
     /** @test */

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Models\Like;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -47,13 +48,22 @@ class UsersTest extends TestCase
     }
 
     /** @test */
-    public function a_user_has_products_others_have_liked() {
-        
-    }
-
-    /** @test */
     public function a_user_has_products_they_have_liked() {
-        
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
+        Product::factory()->create(['user_id'=>$user2->id]);
+        Product::factory()->create(['user_id'=>$user2->id]);
+        $prod = Product::factory()->create(['user_id'=>$user2->id]);
+        $this->signIn($user1);
+
+        $this->assertDatabaseCount('likes',0);
+        $this->assertCount(0,$user1->fresh()->likes);
+
+        $prod->like();
+
+        $this->assertCount(1,$user1->fresh()->likes);
+        $this->assertEquals($prod->id,$user1->fresh()->likes->first()->id);
+        $this->assertDatabaseCount('likes',1);
     }
 
     /** @test */

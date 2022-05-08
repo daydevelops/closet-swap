@@ -21,6 +21,10 @@ class Product extends Model
         'primary_photo_id'
     ];
 
+    protected $appends = ['liked'];
+
+    protected $withCounts = ['likes'];
+
     public function user() {
         return $this->belongsTo(User::class);
     }
@@ -31,5 +35,25 @@ class Product extends Model
 
     public function photos() {
         return $this->hasMany(Photo::class);
+    }
+
+    public function getLikedAttribute() {
+        return auth()->check() && Like::where(['product_id'=>$this->id,'user_id'=>auth()->id()])->exists();
+    }
+
+    public function likes() {
+        return $this->belongsToMany(User::class,'likes')->select(['users.id','users.name']);
+    }
+
+    public function like() {
+        if (!$this->liked) {
+            $this->likes()->attach(auth()->id());
+        }
+    }
+
+    public function unlike() {
+        if ($this->liked) {
+            $this->likes()->detach(auth()->id());
+        }
     }
 }

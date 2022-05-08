@@ -89,6 +89,10 @@ class User extends Authenticatable
     public function products() {
         return $this->hasMany(Product::class);
     }
+    
+    public function likes() {
+        return $this->belongsToMany(Product::class,'likes');
+    }
 
     public function getHasDonatedAttribute() {
         return $this->donations > 0;
