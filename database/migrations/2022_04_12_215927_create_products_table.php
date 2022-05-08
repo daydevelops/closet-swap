@@ -35,14 +35,9 @@ class CreateProductsTable extends Migration
             $users = User::select('id')->get();
             $categories = Category::select('id')->get()->pluck('id')->toArray();
             foreach ($users as $u) {
-                Product::factory()->create(['user_id'=>$u->id,'category_id'=>$categories[array_rand($categories)]]);
-                Product::factory()->create(['user_id'=>$u->id,'category_id'=>$categories[array_rand($categories)]]);
-                Product::factory()->create(['user_id'=>$u->id,'category_id'=>$categories[array_rand($categories)]]);
-            }
-            
-            $admin = User::where('email',env('ADMIN_EMAIL'))->first()->id;
-            for ($i=0;$i<20;$i++) {
-                Product::factory()->create(['user_id'=>$admin,'category_id'=>$categories[array_rand($categories)]]);
+                for ($i=0;$i<20;$i++) {
+                    Product::factory()->create(['user_id'=>$u->id,'category_id'=>$categories[array_rand($categories)]]);
+                }
             }
         }
     }
