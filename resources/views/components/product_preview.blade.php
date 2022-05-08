@@ -1,6 +1,14 @@
 <div class="flex justify-center">
     <a href="{{route('products.show',$product['id'])}}">
-        <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs">
+
+        @if ($product['gender'] == 'male')
+        <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs border-male-2 border-2">
+        @elseif ($product['gender'] == 'female')
+        <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs border-female-2 border-2">
+        @else
+        <div class="card h-96 w-72 relative hover:scale-105 duration-500 transform transition cursor-pointer max-w-xs border-andro-2 border-2">
+        @endif
+        
             <div class="mb-2 max-h-48">
                 @include('partials.carousel',['photos'=>$product['photos'], 'height' => 48, 'width' => 56])
             </div>
