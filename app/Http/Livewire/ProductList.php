@@ -25,7 +25,7 @@ class ProductList extends Component
             return;
         }
 
-        $query = Product::select('id','title','user_id','category_id','description','size','tags')->with(['photos','user:id,handle','category:id,name']);
+        $query = Product::select('id','title','user_id','category_id','description','size','gender','tags')->with(['photos','user:id','category:id,name']);
 
         if (!is_null($this->user_id)) {
             $query->where(['user_id'=>$this->user_id]);
@@ -33,11 +33,7 @@ class ProductList extends Component
         
         if (!is_null($this->similar_to_product_id)) {
             $similar_product = Product::find($this->similar_to_product_id);
-            $query->where([
-                'category_id' => $similar_product->category_id,
-                'size' => $similar_product->size,
-                'gender' => $similar_product->gender
-            ]);
+            $query = $this->loadProductsSimilarTo($similar_product,$query);
         }
 
         $products = $query->cursorPaginate(
@@ -52,6 +48,47 @@ class ProductList extends Component
         if ($this->hasMorePages === true) {
             $this->nextCursor = $products->nextCursor()->encode();
         }
+    }
+
+    private function loadProductsSimilarTo($similar_product,$query) {
+
+        $query->where('id','<>',$similar_product->id);
+
+        $count = Product::where([
+            'category_id' => $similar_product->category_id,
+            'size' => $similar_product->size,
+            'gender' => $similar_product->gender
+        ])->count();
+        if ($count > 4) {
+            return $query->where([
+                'category_id' => $similar_product->category_id,
+                'size' => $similar_product->size,
+                'gender' => $similar_product->gender
+            ]);
+        }
+
+        $count = Product::where([
+            'category_id' => $similar_product->category_id,
+            'gender' => $similar_product->gender
+        ])->count();
+        if ($count > 4) {
+            return $query->where([
+                'category_id' => $similar_product->category_id,
+                'gender' => $similar_product->gender
+            ]);
+        }
+
+        $count = Product::where([
+            'category_id' => $similar_product->category_id,
+        ])->count();
+        if ($count > 4) {
+            return $query->where([
+                'category_id' => $similar_product->category_id,
+            ]);
+        }
+
+        return $query;
+
     }
 
     public function render()
