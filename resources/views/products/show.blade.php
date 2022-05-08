@@ -21,10 +21,11 @@
                     {{ $product->title }}
                 </h2>
                 <h3 class="font-semibold text-xl text-gray-800 mb-8">
-
-                    <img src="{{ $product->user->profile_photo_url }}" alt="{{ $product->user->name }}"
-                        class="inline rounded-full h-8 w-8 object-cover border">
-                    {{ $product->user->name }}
+                    <a href="{{route('profile.visit',$product->user->handle)}}">
+                        <img src="{{ $product->user->profile_photo_url }}" alt="{{ $product->user->name }}"
+                            class="inline rounded-full h-8 w-8 object-cover border">
+                        {{ $product->user->name }}
+                    </a>
                 </h3>
                 <div class="grid grid-cols-3 col-span-2 text-gray-400">
                     <p>
@@ -62,7 +63,7 @@
         </div>
         <div class="container my-8">
             <h4 class="text-center text-lg font-semibold">More like this...</h4>
-            <livewire:product-list similar_to_product_id="{{$product->id}}"/>
+            <livewire:product-list similar_to_product_id="{{$product->id}}" />
         </div>
     </div>
 </x-app-layout>

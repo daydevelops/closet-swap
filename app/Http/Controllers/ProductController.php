@@ -38,7 +38,7 @@ class ProductController extends Controller
     public function show(Product $product)
     {
         $product->load('category');
-        $product->load('user:id,name,profile_photo_path');
+        $product->load('user:id,name,profile_photo_path,handle');
         return view('products.show',compact('product'));
     }
 
