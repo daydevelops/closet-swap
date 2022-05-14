@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Category;
+use App\Models\Like;
 use App\Models\Photo;
 use App\Models\Product;
 use App\Models\User;
@@ -163,12 +164,59 @@ class ProductTest extends TestCase
 
     /** @test */
     public function a_user_can_delete_one_of_their_products() {
-        
+        $this->signIn();
+        $user = User::factory()->create();
+
+
+        $prod = Product::factory()->create(['user_id' => auth()->id()]);
+        Like::create(['user_id'=>$user->id,'product_id'=>$prod->id]);
+        Photo::factory(2)->create();
+
+        $photos = $prod->photos->pluck('id')->toArray();
+        $likes = $prod->likes->pluck('id')->toArray();
+
+        $this->assertDatabaseHas('products',['id' => $prod->id]);
+        $this->assertDatabaseCount('photos',2);
+        $this->assertDatabaseCount('likes',1);
+
+        $this->json('delete',route('products.delete',$prod->id))->assertRedirect(route('profile.show',auth()->user()->handle));
+
+        $this->assertDatabaseMissing('products',['id' => $prod->id]);
+        foreach($photos as $photo) {
+            $this->assertDatabaseMissing('photos',['id' => $photo]);
+        }
+        $this->assertDatabaseMissing('likes',['user_id'=>$user->id,'product_id'=>$prod->id]);
+        $this->assertDatabaseCount('photos',0);
+        $this->assertDatabaseCount('likes',0);
     }
 
     /** @test */
     public function a_user_cannot_delete_a_product_they_do_not_own() {
+        $this->signIn();
+        $user = User::factory()->create();
+        $user_2 = User::factory()->create();
+
+        $prod = Product::factory()->create(['user_id' => $user_2->id]);
+        Like::create(['user_id'=>$user->id,'product_id'=>$prod->id]);
+        Photo::factory(2)->create();
+
+        $photos = $prod->photos->pluck('id')->toArray();
+
+        $this->assertDatabaseHas('products',['id' => $prod->id]);
+        $this->assertDatabaseCount('photos',2);
+        $this->assertDatabaseCount('likes',1);
         
+
+        $this->json('delete',route('products.delete',$prod->id))->assertStatus(403);
+
+        $this->assertDatabaseHas('products',['id' => $prod->id]);
+        foreach($photos as $photo) {
+            $this->assertDatabaseHas('photos',['id' => $photo]);
+        }
+        $this->assertDatabaseHas('likes',['user_id'=>$user->id,'product_id'=>$prod->id]);
+        
+        $this->assertDatabaseCount('likes',1);
+        $this->assertDatabaseCount('photos',2);
     }
 
     /** @test */

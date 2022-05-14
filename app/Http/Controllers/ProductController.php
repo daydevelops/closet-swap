@@ -84,6 +84,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        if (auth()->user()->can('delete',$product)) {
+            $product->delete();
+            return redirect()->to(route('profile.show',auth()->user()->handle));
+        } else {
+            abort(403);
+        }
     }
 }

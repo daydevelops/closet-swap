@@ -19,6 +19,14 @@ class ProductPolicy
     }
 
     public function edit(User $user,Product $product) {
+        return $this->isOwner($user,$product);
+    }
+
+    public function delete(User $user,Product $product) {
+        return $this->isOwner($user,$product);
+    }
+
+    private function isOwner(User $user,Product $product) {
         return $user->id == $product->user_id;
     }
 }
