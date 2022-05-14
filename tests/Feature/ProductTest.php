@@ -93,13 +93,72 @@ class ProductTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_edit_a_product() {
-        
+    public function a_user_can_edit_a_products_information() {
+        $this->signIn();
+        $original_data = [
+            'title' => 'title 1',
+            'description' => 'desc 1',
+            'gender' => 'male',
+            'size' => 'small',
+            'tags' => json_encode(['tag1','tag2']),
+            'status' => 'available',
+        ];
+
+        $prod = Product::factory()->create(array_merge(['user_id' => auth()->id()],$original_data));
+
+        $this->get(route('products.edit',[$prod->id]))->assertStatus(200);
+
+        $patch_data = [
+            'title' => 'title 2',
+            'description' => 'desc 2',
+            'gender' => 'female',
+            'size' => 'large',
+            'tags' => json_encode(['tag3','tag4']),
+            'status' => 'traded',
+        ];
+
+        $this->assertDatabaseHas('products',$original_data);
+        $this->assertDatabaseMissing('products',$patch_data);
+
+        $this->json('patch',route('products.update',$prod->id),$patch_data)->assertStatus(200);
+
+        $this->assertDatabaseMissing('products',$original_data);
+        $this->assertDatabaseHas('products',$patch_data);
     }
 
     /** @test */
     public function a_user_cannot_edit_a_product_they_do_not_own() {
         
+        $this->signIn();
+        $original_data = [
+            'title' => 'title 1',
+            'description' => 'desc 1',
+            'gender' => 'male',
+            'size' => 'small',
+            'tags' => json_encode(['tag1','tag2']),
+            'status' => 'available',
+        ];
+
+        $prod = Product::factory()->create(array_merge(['user_id' => User::factory()->create()->id],$original_data));
+
+        $this->json('get',route('products.edit',[$prod->id]))->assertStatus(403);
+
+        $patch_data = [
+            'title' => 'title 2',
+            'description' => 'desc 2',
+            'gender' => 'female',
+            'size' => 'large',
+            'tags' => json_encode(['tag3','tag4']),
+            'status' => 'traded',
+        ];
+
+        $this->assertDatabaseHas('products',$original_data);
+        $this->assertDatabaseMissing('products',$patch_data);
+
+        $this->json('patch',route('products.update',$prod->id),$patch_data)->assertStatus(403);
+
+        $this->assertDatabaseHas('products',$original_data);
+        $this->assertDatabaseMissing('products',$patch_data);
     }
 
     /** @test */

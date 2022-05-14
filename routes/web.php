@@ -67,6 +67,9 @@ Route::group(['prefix'=>'/products'],function() {
     Route::get('/',[ProductController::class,'index'])->name('products');
     Route::get('/create',[ProductController::class,'create'])->name('products.create');
     Route::get('/{product}',[ProductController::class,'show'])->name('products.show');
+    Route::get('/{product}/edit',[ProductController::class,'edit'])->middleware('auth')->name('products.edit');
+    Route::patch('/{product}',[ProductController::class,'update'])->middleware('auth')->name('products.update');
+
     Route::post('/like/{product}',[LikeController::class,'store'])->middleware('auth')->name('products.like');
     Route::delete('/unlike/{product}',[LikeController::class,'destroy'])->middleware('auth')->name('products.unlike');
 });

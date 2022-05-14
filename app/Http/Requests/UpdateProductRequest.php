@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateProductRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateProductRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return auth()->user()->can('edit',$this->product);
     }
 
     /**
@@ -24,7 +25,12 @@ class UpdateProductRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title'       => 'required|max:120',
+            'description' => 'required|max:400',
+            'gender'      => ['required',Rule::in(config('products.available_genders'))],
+            'size'        => ['required',Rule::in(config('products.available_sizes'))],
+            'tags'        => 'required|json',
+            'status'      => ['required',Rule::in(config('products.available_statuses'))],
         ];
     }
 }

@@ -50,7 +50,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        if (auth()->user()->can('edit',$product)) {
+            return true;
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -62,7 +66,14 @@ class ProductController extends Controller
      */
     public function update(UpdateProductRequest $request, Product $product)
     {
-        //
+        $product->update([
+            'title'       => $request['title'],
+            'description' => $request['description'],
+            'gender'      => $request['gender'],
+            'size'        => $request['size'],
+            'tags'        => $request['tags'],
+            'status'      => $request['status'],
+        ]);
     }
 
     /**

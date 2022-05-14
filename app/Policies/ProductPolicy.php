@@ -17,4 +17,8 @@ class ProductPolicy
     public function unlike(User $user,Product $product) {
         return $product->liked && $product->user_id != $user->id;
     }
+
+    public function edit(User $user,Product $product) {
+        return $user->id == $product->user_id;
+    }
 }
