@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
@@ -16,7 +15,7 @@ class ProfileTest extends TestCase
         $this->signIn();
         $me = auth()->user();
 
-        $products = Product::factory(3)->create(['user_id'=>$me->id]);
+        $products = $this->seedProducts(3,['user_id'=>$me->id])['products'];
 
         $res = $this->json('get',$me->profile())->assertStatus(200);
 
@@ -35,7 +34,7 @@ class ProfileTest extends TestCase
         $user = User::factory()->create();
         $res = $this->json('get',$user->profile())->assertStatus(200);
 
-        $products = Product::factory(3)->create(['user_id'=>$user->id]);
+        $products = $this->seedProducts(3,['user_id'=>$user->id])['products'];
 
         $res = $this->json('get',$user->profile())->assertStatus(200);
 
