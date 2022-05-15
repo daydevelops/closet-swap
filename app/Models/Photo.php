@@ -22,7 +22,7 @@ class Photo extends Model
     }
 
     public function getPathAttribute() {
-        return config('filesystems.product_photos_directory') . '/' . $this->file_name;
+        return config('filesystems.disks.photos.root') . '/' . $this->file_name;
     }
 
 }

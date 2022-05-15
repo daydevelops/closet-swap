@@ -253,16 +253,4 @@ class ProductTest extends TestCase
         $this->assertEquals($photo3->id,Photo::first()->id);
     }
 
-    /** @test */
-    public function a_product_can_add_a_photo() {
-        $prod = Product::factory()->create();
-        $photo = Photo::factory()->create();
-
-        $this->assertCount(0,$prod->fresh()->photos);
-        
-        $prod->addPhoto($photo);
-        
-        $this->assertCount(1,$prod->fresh()->photos);
-    }
-
 }

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LikeController;
+use App\Http\Controllers\PhotoController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SearchController;
@@ -73,6 +74,10 @@ Route::group(['prefix'=>'/products'],function() {
 
     Route::post('/like/{product}',[LikeController::class,'store'])->middleware('auth')->name('products.like');
     Route::delete('/unlike/{product}',[LikeController::class,'destroy'])->middleware('auth')->name('products.unlike');
+    
+    Route::post('/photo',[PhotoController::class,'store'])->middleware('auth')->name('products.photo.store');
+    Route::delete('/photo/{photo}',[PhotoController::class,'destroy'])->middleware('auth')->name('products.photo.delete');
+
 });
 
 Route::group(['prefix'=>'/search'],function() {

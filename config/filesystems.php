@@ -53,6 +53,11 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
         ],
 
+        'photos' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public') . '/product-photos',
+        ],
+
     ],
 
     /*
@@ -69,7 +74,4 @@ return [
     'links' => [
         public_path('storage') => storage_path('app/public'),
     ],
-
-    'product_photos_directory' => env('APP_URL') . '/storage/product-photos'
-
 ];
