@@ -41,7 +41,7 @@ class PhotoTest extends TestCase
     /** @test */
     public function a_photo_knows_its_full_path() {
         $p = Photo::factory()->create(['file_name'=>'foobar.png']);
-        $this->assertEquals(config('filesystems.disks.photos.root') . '/foobar.png', $p->path);
+        $this->assertEquals(Storage::disk('photos')->url('') . '/foobar.png', $p->path);
     }
 
     /** @test */
