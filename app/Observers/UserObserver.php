@@ -8,6 +8,6 @@ class UserObserver
 {
     public function creating(User $user)
     {
-        $user->handle = uniqid();
+        $user->handle = $user->handle ?? uniqid();
     }
 }
