@@ -56,6 +56,7 @@ return [
         'photos' => [
             'driver' => 'local',
             'root' => storage_path('app/public') . '/product-photos',
+            'url' => env('APP_URL') . '/storage/product-photos',
         ],
 
     ],
