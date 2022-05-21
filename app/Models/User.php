@@ -34,7 +34,8 @@ class User extends Authenticatable
         'password',
         'donations',
         'handle',
-        'bio'
+        'bio',
+        'handle_set'
     ];
 
     /**

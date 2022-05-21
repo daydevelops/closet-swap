@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->foreignId('current_connected_account_id')->nullable();
             $table->text('profile_photo_path')->nullable();
             $table->double('donations')->default(0.00);
+            $table->boolean('handle_set')->default(false);
             $table->timestamps();
         });
     }

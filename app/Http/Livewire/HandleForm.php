@@ -3,9 +3,11 @@
 namespace App\Http\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Validator;
 use Livewire\Component;
+use Illuminate\Validation\Rule;
 
-class HandleInput extends Component
+class HandleForm extends Component
 {
     public $handle;
     public $warning;
@@ -31,6 +33,26 @@ class HandleInput extends Component
             $this->warning = '';
             $this->success = 'Nice choice :)';
         }
-        return view('livewire.handle-input');
+        return view('livewire.handle-form');
     }
+
+    public function updateHandle() {
+        $handle = $this->handle;
+
+        Validator::make(['handle'=>$handle], [
+            'handle' => ['required', 'string', 'alphanum', 'min:4', 'max:140', Rule::unique('users')->ignore(auth()->id())],
+        ])->validate();
+
+        if (auth()->user()->handle_set) {
+            return false;
+        }
+
+        auth()->user()->update([
+            'handle' => $handle,
+            'handle_set' => true
+        ]);
+
+        return redirect(request()->header('Referer'));
+    }
+
 }
